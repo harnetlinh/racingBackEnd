@@ -1,19 +1,11 @@
 const database = require("../models/account.model.js");
 const jwt = require('jsonwebtoken');
+const decodeToken = require("../middleware/Vertify Object/vertify.token.js");
 const { json } = require("body-parser");
-exports.Login = async (req,res) =>
+var totalAccout = 0;
+exports.Login = async (req,res,next) =>
 {
     let tk;
-    await database.Login(req.body.account,req.body.password).then((token) => tk = token)
-    .catch(err => res.json({"Status":"Access Deny"}));
-
-    let alg  = {
-        "algorithm": "HS512"
-       };
-    jwt.verify(tk,process.env.TOKEN_SECRET, alg,function(err,decode){
-        if(err) throw err;
-        else
-        console.log(decode);
-    });
-    res.send(tk);
+    await database.Login(req.body.account,req.body.password).then((token) =>  {res.send(token); tk = token})
+    .catch(err => res.status(403).json({"Status":"Access Deny"}));
 }

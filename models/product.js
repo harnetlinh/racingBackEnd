@@ -10,7 +10,6 @@ exports.getProductInTheDatabase = async () =>
         "INNER JOIN brand on brand.brandID = product.productBrand " +
         "GROUP BY (imagecar.productID)";
         database.query(qr,function(err,rows,fields){
-            console.log(qr);
             if(err) reject(err);
             else resolve(rows);
             });

@@ -4,20 +4,31 @@ const sha512 = require('js-sha512');
 exports.Login  = (account,password) =>
 {
     return promise = new Promise((resolve, reject)=>{
-        let qr = "SELECT * FROM `account` WHERE account = \'" + account + "\' and pass_ = \'" + sha512.sha512(password) + "\'";
+        let qr = "SELECT account.account,account.isAdmin,rulesdetail.rulesID,rules.ruleName FROM `account`"+ 
+        " INNER JOIN rulesdetail on rulesdetail.account = account.account" +
+        " INNER JOIN rules on rules.ruleID = rulesdetail.rulesID "+
+        " WHERE account.account = \'" + account + "\' and account.pass_ = \'" + sha512.sha512(password) + "\'";
         db.query(qr,function(err,rows,fields){
             if(err) reject(err);
-            else if(rows.length==1)
+            else if(rows.length>=1)
             {
-                let  isAdmin =  JSON.stringify(rows[0].isAdmin);
+                let addNewProductRole = 0, updateProductRole = 0,deleteProductRole = 0;
+                for(let i =0;i<rows.length;i++)
+                {
+                    if(rows[i].rulesID==1) addNewProductRole = 1;
+                    if(rows[i].rulesID==2) updateProductRole = 1;
+                    if(rows[i].rulesID==3) deleteProductRole = 1;
+                }
                 let playLoad = {
-                    "sub": "1234567890",
-                    "name": rows[0].account,
-                    "isAdmin": isAdmin.data,
-                    "addProduct": 1,
-                    "updateProduct": 12,
-                    "deleteProduct": 13,
-                    "jti": "95569f57-e96f-4664-acec-7bef5a98829e" //test thoi
+                    "domain": "abc.com",
+                    "id": rows[0].account,
+                    "admin": rows[0].isAdmin,
+                    "jti": sha512(rows[0].account),
+                    "iat": Math.floor(Date.now() / 1000),
+                    "exp": Math.floor(Date.now() / 1000) + (60*3),
+                    "addNewProduct": addNewProductRole,
+                    "updateProduct": updateProductRole,
+                    "deleteProduct": deleteProductRole,
                 };
                 let alg  = {
                     "algorithm": "HS512"
