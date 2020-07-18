@@ -1,0 +1,4 @@
+{
+    "data": 
+    [
+        { "data":"01" },{"reqComplate":true,"headers":{"user-agent":"PostmanRuntime/7.26.1","accept":"*/*","postman-token":"999233d1-5f09-469a-ad81-a66a7392c0cb","host":"localhost:3000","accept-encoding":"gzip, deflate, br","connection":"keep-alive","content-type":"application/x-www-form-urlencoded","content-length":"11"},"params":{},"body":{"productID":"4"},"querey":{},"originalURL":"/delete","method":"DELETE","ServerDate":"19/6/2020","ServerTime":"0h-42m-26s","ip":"::1","resStatusCode":403,"resContent":{"Status":"Access Deny"},"err":"Token Invalid"}

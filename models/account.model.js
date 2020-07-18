@@ -20,12 +20,12 @@ exports.Login  = (account,password) =>
                     if(rows[i].rulesID==3) deleteProductRole = 1;
                 }
                 let playLoad = {
-                    "domain": "abc.com",
+                    "domainSendRequest": "abc.com.vn",
                     "id": rows[0].account,
                     "admin": rows[0].isAdmin,
                     "jti": sha512(rows[0].account),
                     "iat": Math.floor(Date.now() / 1000),
-                    "exp": Math.floor(Date.now() / 1000) + (60*3),
+                    "exp": Math.floor(Date.now() / 1000) + (60*10), //10p
                     "addNewProduct": addNewProductRole,
                     "updateProduct": updateProductRole,
                     "deleteProduct": deleteProductRole,

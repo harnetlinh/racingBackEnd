@@ -7,7 +7,7 @@ exports.getProductInTheDatabase = async () =>
         "FROM product " +
         "INNER JOIN cartype on product.productTypeID = cartype.typeID " +
         "INNER JOIN imagecar on imagecar.productID = product.productID " +
-        "INNER JOIN brand on brand.brandID = product.productBrand " +
+        "INNER JOIN brand on brand.brandID = product.productBrand where product.isDelete = 1 and imagecar.isDelete = 1 " +
         "GROUP BY (imagecar.productID)";
         database.query(qr,function(err,rows,fields){
             if(err) reject(err);
@@ -20,7 +20,6 @@ exports.addOneProductToDatabase = (productName, productBrand, productPrice, prod
 {   
     return promise = new Promise((resolve,reject) =>
     {
-        let Status = "Add field";
         database.query("INSERT INTO `product`(`productName`, `productBrand`, `productPrice`, `productColor`, `productTypeID`, `account_added`) VALUES (?,?,?,?,?,'admin')",
         [productName, productBrand, productPrice, productColor, productTypeID],
         function(err,rows,fields)
@@ -46,7 +45,7 @@ exports.deleteTheProductInDatabase = (productID) =>
 {
     return promise = new Promise((resolve, reject) => 
     {  
-        let qr = "delete from product where productID = " + productID;
+        let qr = "UPDATE `product` SET `isDelete`= 0 WHERE  productID = " + productID;
         database.query(qr,function(err,rows,fields)
         {
             if(err) reject(err);
@@ -60,16 +59,15 @@ exports.deleteTheProductInDatabase = (productID) =>
 
 exports.updateTheProductInformationModel = (product) =>
 {
-    let a = 0;
     return promise = new Promise((resolve,reject)=>
     {
-        if(product.productBrand != null && product.productBrand != "" 
-        && product.productName != null && product.productName != "" 
-        && product.productPrice != null && product.productPrice !=""
-        && product.productTypeID != null && product.productTypeID != ""
-        && product.productColor != null && product.productColor != ""
-        && product.account_added != null && product.account_added != ""
-        && product.productID != null && product.productID != ""
+        if(product.productBrand != "" 
+        && product.productName != "" 
+        && product.productPrice !="" 
+        && product.productTypeID != ""
+        && product.productColor != ""
+        && product.account_added != ""
+        && product.productID != ""
         )
         {
             let qr = "UPDATE `product` SET " +
@@ -89,7 +87,6 @@ exports.updateTheProductInformationModel = (product) =>
             });
        }
        else reject(0);
-       console.log(a+1);
     });
 }
 
@@ -119,7 +116,7 @@ exports.deleteOneImageOfProduct = (imgID) =>
 {
     return promise = new Promise((resolve,reject)=>
     {
-        let qr = "DELETE FROM `imagecar` WHERE `imagecar`.`imgID` = " + imgID;
+        let qr = "UPDATE `imagecar` SET `isDelete`= 0 WHERE imagecar.imgID =  " + imgID;
         database.query(qr,function(err,rows)
         {
             if(err) reject(err);

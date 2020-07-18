@@ -11,7 +11,11 @@ class Vertify
         } catch(error) {
             decode = -1;
         }
-        this.decodeTokenPayLoad = decode;
+        if(decode.domainSendRequest==process.env.DOMAIN)
+        {
+           this.decodeTokenPayLoad = decode;
+        }
+        else this.decodeTokenPayLoad = -1;
     }
     getUpdateProductRole()
     {
@@ -35,12 +39,6 @@ class Vertify
     {
         if(this.decodeTokenPayLoad!=-1)
         return this.decodeTokenPayLoad.admin;
-        else return -1;
-    }
-    getDomain()
-    {
-        if(this.decodeTokenPayLoad!=-1)
-        return this.decodeTokenPayLoad.domain;
         else return -1;
     }
 }

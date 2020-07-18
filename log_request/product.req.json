@@ -1,0 +1,4 @@
+{
+    "data": 
+    [
+        { "data":"01" },{"reqComplate":true,"headers":{"user-agent":"PostmanRuntime/7.26.1","accept":"*/*","postman-token":"bd4968c9-f555-47a6-b795-b0db7a9ac53e","host":"localhost:3000","accept-encoding":"gzip, deflate, br","connection":"keep-alive","content-type":"application/x-www-form-urlencoded","content-length":"11"},"params":{},"body":{"productID":"4"},"querey":{},"originalURL":"/homePageLoader","method":"GET","ServerDate":"19/6/2020","ServerTime":"0h-42m-10s","ip":"::1","resStatusCode":200,"resContent":[{"productID":2,"productName":"Optioma","brandName":"KIA","productPrice":"980000000","productColor":"Black","typeName":"Sedan","image_":"Image 1 of Optima"},{"productID":3,"productName":"Civic","brandName":"Honda","productPrice":"890000000","productColor":"Mate Black","typeName":"Sedan","image_":"Image 1 of Cerato Update 3st time"}],"err":"null"}
