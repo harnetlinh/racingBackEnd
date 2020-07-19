@@ -6,11 +6,19 @@ const dotenv = require('dotenv').config();
 const bodyParser = require("body-parser");
 
 const routes = require("./Routes/routes.js");
+<<<<<<< HEAD
 const routerCart = require("./Routes/cartRoutes.js");
 const routerAuthSWT = require("./Routes/auth.jwt.routes");
 const routerBrand = require("./Routes/brand.routes.js");
 const pageNotFound = require("./Routes/404.routes.js");
 var globalVariable = 100;
+=======
+const routerCart = require("./Routes/cartRoutes.js")
+const routerAuthSWT = require("./Routes/auth.jwt.routes")
+const routerBrand = require("./Routes/brand.routes.js")
+const logStore = require('./middleware/logStore/log');
+
+>>>>>>> 7149c469aebc4c84a8d0c9b263ded0957a53622d
 const corsList = {
     origin: "http://localhost:8080"
 };
@@ -18,6 +26,7 @@ const corsList = {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors(corsList));
+app.use(logStore)
 //app.use(dotenv);
 app.use("/",routerAuthSWT);
 app.use("/",routes);
